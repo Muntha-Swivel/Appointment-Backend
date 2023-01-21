@@ -1,6 +1,7 @@
 import AppointmentModel from "../models/appointment.model";
 import { iAppointment } from "../models/appointment.model";
 import log from "../utils/logger";
+import { sendConfirmEmail } from "./email.service";
 
 const createAppointmentService = async (appointment: iAppointment) => {
   // log.info(appointment);
@@ -31,6 +32,21 @@ const confirmAppointmentService = async (appointment: iAppointment) => {
       duration: duration,
       confirmed: confirmed,
     });
+    //name, number, date, time
+
+    if (update) {
+      try {
+        const email = await sendConfirmEmail(
+          update.name,
+          update._id,
+          update.date,
+          update.startTime
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    // mail();
     return update;
   } catch (err: any) {
     log.info(err);
