@@ -22,11 +22,13 @@ const getAllAppointmentService = async () => {
   }
 };
 const confirmAppointmentService = async (appointment: iAppointment) => {
-  const { _id, time, confirmed } = appointment;
+  const { _id, startTime, endTime, duration, confirmed } = appointment;
 
   try {
     const update = await AppointmentModel.findByIdAndUpdate(_id, {
-      time: time,
+      startTime: startTime,
+      endTime: endTime,
+      duration: duration,
       confirmed: confirmed,
     });
     return update;

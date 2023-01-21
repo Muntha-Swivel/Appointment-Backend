@@ -14,7 +14,9 @@ export interface iAppointment {
   date: string;
   email: string;
   mobile: string;
-  time: string;
+  startTime: string;
+  endTime: string;
+  duration: string;
   confirmed: boolean;
 }
 const AppointmentSchema = new mongoose.Schema<iAppointment>({
@@ -26,9 +28,19 @@ const AppointmentSchema = new mongoose.Schema<iAppointment>({
     type: String,
     required: [true, "Plese enter a date"],
   },
-  time: {
+  startTime: {
     type: String,
     required: [true, "Please enter a time"],
+    default: currentTime,
+  },
+  endTime: {
+    type: String,
+    required: [true, "Please enter a time"],
+    default: currentTime,
+  },
+  duration: {
+    type: String,
+    required: [true, "Please enter a duration"],
     default: currentTime,
   },
   email: {
